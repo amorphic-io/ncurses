@@ -37,6 +37,8 @@
 # specified list of types generated in.
 #
 
+set -e
+
 terminfo_dir=$1
 shift
 

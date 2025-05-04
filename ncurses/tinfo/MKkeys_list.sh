@@ -35,6 +35,9 @@
 #
 # Extract function-key names from the Caps file
 #
+
+set -e
+
 : ${AWK-awk}
 if test $# != 0
 then
