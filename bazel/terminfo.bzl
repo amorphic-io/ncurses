@@ -42,6 +42,7 @@ def _terminfo_directory_impl(ctx):
         executable = executable,
         outputs = [directory],
         inputs = ctx.files.srcs,
+        use_default_shell_env = True,
     )
 
     return [DefaultInfo(
@@ -89,7 +90,15 @@ def _local_terminfo_repository_impl(rctx):
             rctx.path("terminfo"),
         )
     else:
-        fail_message = "No host directory: {}".format(terminfo_path)
+        # Nixos.
+        terminfo_path = rctx.path("/run/current-system/sw/share/terminfo")
+        if terminfo_path.exists:
+            rctx.symlink(
+                terminfo_path,
+                rctx.path("terminfo"),
+            )
+        else:
+            fail_message = "No host directory: {}".format(terminfo_path)
 
     terminfo_bzl = rctx.path(rctx.attr._terminfo_bzl)
     rctx.symlink(

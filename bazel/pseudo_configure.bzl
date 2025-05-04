@@ -67,6 +67,7 @@ def _pseudo_configure_impl(ctx):
         outputs = [out],
         executable = executable,
         tools = [sed],
+        use_default_shell_env = True,
     )
 
     return [DefaultInfo(
